@@ -7,20 +7,16 @@
 ### NOTES
 
 ---
-Get all notes in DB
+#### Get all notes in DB
 ```
 GET /notes
-<<<<<<< HEAD
-
-=======
->>>>>>> 64debff (Update README)
 returns {
   data: all notes in DB    
 }
 ```
 
 ---
-Get a single note
+#### Get a single note
 ```
 GET /notes/noteID
 
@@ -30,7 +26,7 @@ returns {
 ```
 
 ---
-Get all of a user's owned notes
+#### Get all of a user's owned notes
 ```
 GET /allby/username
 
@@ -40,7 +36,7 @@ returns {
 ```
 
 ---
-Create a note
+#### Create a note
 ```
 POST /notes
 
@@ -55,7 +51,7 @@ returns {
 ```
 
 ---
-Delete a note
+#### Delete a note
 ```
 DELETE /notes/nodeID
 
@@ -65,7 +61,7 @@ returns {
 ```
 
 ---
-Update a note
+#### Update a note
 ```
 PUT /notes/noteID
 
@@ -81,7 +77,7 @@ returns {
 ```
 
 ---
-Add or remove a collaborator from a note
+#### Add or remove a collaborator from a note
 ```
 PATCH /notes/noteID
 
