@@ -2,35 +2,40 @@
 
 ## ENDPOINTS
 
-#### GET /notes/:noteID
-Returns:
-```
-data: single note document
-```
 
+```
 #### GET /notes
-Returns:
-```
-data: all notes in DB
-```
-
-#### GET /allby/username
-Returns:
-```
-data: all notes created by username
+returns {
+  data: all notes in DB    
+}
 ```
 
-#### GET /allby/username
-Returns:
 ```
-data: all notes created by username
+GET /notes/:noteID
+
+returns {
+  data: single note document    
+}
 ```
 
-#### POST /notes
-Expects:
+
 ```
-body {
+GET /allby/username
+
+returns {
+  data: all notes created by username  
+}
+```
+
+```
+POST /notes
+
+expects body {
     title: string,
     text: string,
+}
+
+returns {
+    
 }
 ```
