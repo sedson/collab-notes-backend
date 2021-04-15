@@ -2,7 +2,8 @@
 
 Can set any PORT in a `.env` file. Defautl is 3001.
 
-Currently
+All routes send JSON containing the current user and either a document or a sucess/error message, depending on what is requested.
+
 
 ## ENDPOINTS
 

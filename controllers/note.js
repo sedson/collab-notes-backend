@@ -73,7 +73,7 @@ router.post('/', (req, res) => {
   //   })
   // }
 
-  const newDrawing = {
+  const newNote = {
     title: req.body.title || "untitled",
     text: req.body.text || "",
     owner: req.session.currentUser || "none",
@@ -81,7 +81,7 @@ router.post('/', (req, res) => {
     createdAt: Date.now(),
   }
 
-  Note.create(newDrawing, (err, data) => {
+  Note.create(newNote, (err, data) => {
 
     if (err) {
       handleErr(err, res);
