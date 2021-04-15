@@ -4,7 +4,8 @@
 
 
 ```
-#### GET /notes
+GET /notes
+
 returns {
   data: all notes in DB    
 }
