@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const noteSchema = new mongoose.Schema({
   title: { type: String, required: true },
   text: { type: String, required: true },
-  owner: {type: String, required: true},
+  owner: {type: String, required: true, default: "none"},
   authorizedEditors: { type: [String], default: [] },
   createdAt: Number,
   editedAt: Number,
