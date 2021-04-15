@@ -34,7 +34,7 @@ returns {
 }
 ```
 
-#### Get all notes that is user is shared on
+#### Get all notes that a user shares
 ```
 GET /allshared/:username
 
