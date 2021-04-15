@@ -1,12 +1,13 @@
 # collab-notes-backend
 
-## ENDPOINTS
+Can set any PORT in a `.env` file. Defautl is 3001.
 
-----
+Currently
+
+## ENDPOINTS
 
 ### NOTES
 
----
 #### Get all notes in DB
 ```
 GET /notes
@@ -15,27 +16,33 @@ returns {
 }
 ```
 
----
 #### Get a single note
 ```
-GET /notes/noteID
+GET /notes/:noteID
 
 returns {
   data: single note document    
 }
 ```
 
----
 #### Get all of a user's owned notes
 ```
-GET /allby/username
+GET /allby/:username
 
 returns {
   data: all notes created by username  
 }
 ```
 
----
+#### Get all notes that is user is shared on
+```
+GET /allshared/:username
+
+returns {
+  data: all notes created by username  
+}
+```
+
 #### Create a note
 ```
 POST /notes
@@ -46,24 +53,22 @@ expects body {
 }
 
 returns {
-    message
+  message
 }
 ```
 
----
 #### Delete a note
 ```
-DELETE /notes/nodeID
+DELETE /notes/:nodeID
 
 returns {
-    message
+  message
 }
 ```
 
----
 #### Update a note
 ```
-PUT /notes/noteID
+PUT /notes/:noteID
 
 expects body {
   title: string
@@ -76,10 +81,9 @@ returns {
 
 ```
 
----
 #### Add or remove a collaborator from a note
 ```
-PATCH /notes/noteID
+PATCH /notes/:noteID
 
 expects body {
   username: string

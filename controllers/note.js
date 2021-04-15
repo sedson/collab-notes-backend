@@ -13,7 +13,6 @@ const handleErr = (err, res) => {
 }
 
 
-
 // ALL NOTES –––––––––––––––––––––––––––––––
 router.get('/', (req, res) => {
   Note.find({}).sort({'createdAt' : -1}).exec((err, data) => {
@@ -46,6 +45,24 @@ router.get('/allby/:username', (req, res) => {
     })
   })
 })
+
+// ALL NOTES FOR USER ––––––––––––––––––––––
+router.get('/allshared/:username', (req, res) => {
+  Note.find({authorizedEditors: req.params.username}).sort({'createdAt' : -1}).exec((err, data) => {
+
+    if (err) {
+      handleErr(err, res);
+      return;
+    }
+
+    res.status(200).json({
+      data: data,
+      currentUser: req.session.currentUser || null
+    })
+  })
+})
+
+
 
 // POST NOTE --------------------------------
 router.post('/', (req, res) => {
