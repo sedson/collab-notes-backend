@@ -5,11 +5,15 @@ const Note = require('../models/note');
 module.exports = router;
 
 // HELPERS –––––––––––––––––––––––––––––––––
-const handleErr = (err, res) => {
-  res.status(400).json({
-    error: err.message,
-    currentUser: req.session.currentUser || null
-  })
+const handleErr = (err, req, res) => {
+  if (err) {
+    res.status(400).json({
+      error: err.message,
+      currentUser: req.session.currentUser || null
+    })
+    return true;
+  }
+  return false;
 }
 
 
@@ -17,10 +21,7 @@ const handleErr = (err, res) => {
 router.get('/', (req, res) => {
   Note.find({}).sort({'createdAt' : -1}).exec((err, data) => {
 
-    if (err) {
-      handleErr(err, res);
-      return;
-    }
+    if (handleErr(err, req, res)) return;
 
     res.status(200).json({
       data: data,
@@ -34,10 +35,7 @@ router.get('/', (req, res) => {
 router.get('/allby/:username', (req, res) => {
   Note.find({owner: req.params.username}).sort({'createdAt' : -1}).exec((err, data) => {
 
-    if (err) {
-      handleErr(err, res);
-      return;
-    }
+    if (handleErr(err, req, res)) return;
 
     res.status(200).json({
       data: data,
@@ -50,10 +48,7 @@ router.get('/allby/:username', (req, res) => {
 router.get('/allshared/:username', (req, res) => {
   Note.find({authorizedEditors: req.params.username}).sort({'createdAt' : -1}).exec((err, data) => {
 
-    if (err) {
-      handleErr(err, res);
-      return;
-    }
+    if (handleErr(err, req, res)) return;
 
     res.status(200).json({
       data: data,
@@ -83,10 +78,7 @@ router.post('/', (req, res) => {
 
   Note.create(newNote, (err, data) => {
 
-    if (err) {
-      handleErr(err, res);
-      return;
-    }
+    if (handleErr(err, req, res)) return;
 
     res.status(200).json({
       message: "Note document created",
@@ -100,10 +92,7 @@ router.post('/', (req, res) => {
 router.get('/:noteID', (req, res) => {
   Note.findById(req.params.noteID, (err, data) => {
 
-    if (err) {
-      handleErr(err, res);
-      return;
-    }
+    if (handleErr(err, req, res)) return;
 
     res.status(200).json({
       data: data,
@@ -117,10 +106,7 @@ router.get('/:noteID', (req, res) => {
 router.delete('/:noteID', (req, res) => {
   Note.findByIdAndDelete(req.params.noteID, (err, data) => {
 
-    if (err) {
-      handleErr(err, res);
-      return;
-    }
+    if (handleErr(err, req, res)) return;
 
     res.status(200).json({
       message: "Note successfully deleted.",
@@ -142,10 +128,7 @@ router.put('/:noteID', (req, res) => {
 
   Note.findByIdAndUpdate(req.params.noteID, updateDrawing, (err, data) => {
 
-    if (err) {
-      handleErr(err, res);
-      return;
-    }
+    if (handleErr(err, req, res)) return;
 
     res.status(200).json({
       message: "Note successfully updated.",
@@ -161,10 +144,7 @@ router.patch('/:noteID', (req, res) => {
 
     // TODO: Could make this check to see if the user actually exists
 
-    if (err) {
-      handleErr(err, res);
-      return;
-    }
+    if (handleErr(err, req, res)) return;
 
     // handle no operation
     if (! (req.body.operation === "add" || req.body.operation === "remove")) {

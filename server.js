@@ -58,7 +58,8 @@ const corsOptions = {
 // MIDDLEWARE ––––––––––––––––––––––––––––––
 app.use(express.json());
 
-app.use('/notes', require('./controllers/note'))
+app.use('/notes', require('./controllers/note.js'));
+app.use('/users', require('./controllers/user.js'))
 
 app.get('/', (req, res) => {
   res.json({
