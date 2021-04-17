@@ -59,7 +59,9 @@ const corsOptions = {
 app.use(express.json());
 
 app.use('/notes', require('./controllers/note.js'));
-app.use('/users', require('./controllers/user.js'))
+app.use('/users', require('./controllers/user.js'));
+app.use('/sessions', require('./controllers/session.js'));
+
 
 app.get('/', (req, res) => {
   res.json({
