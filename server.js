@@ -6,7 +6,9 @@ const PORT = process.env.PORT || 3001;
 const express = require('express');
 const app = express();
 
-
+// CORS ––––––––––––––––––––––––––––––––––––
+const cors = require('cors');
+app.use(cors());
 
 // MONGOOSE ––––––––––––––––––––––––––––––––
 const mongoose = require('mongoose');
