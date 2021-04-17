@@ -26,7 +26,10 @@ router.post('/', (req, res) => {
     }
 
     if (req.body.password === user.password) {
+
       req.session.currentUser = user.username;
+
+      
       res.status(200).json({
         message: "LOGGED IN",
         currentUser: user.username || null,

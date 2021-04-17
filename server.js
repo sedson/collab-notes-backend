@@ -8,7 +8,7 @@ const app = express();
 
 // CORS ––––––––––––––––––––––––––––––––––––
 const cors = require('cors');
-app.use(cors());
+
 
 // MONGOOSE ––––––––––––––––––––––––––––––––
 const mongoose = require('mongoose');
@@ -45,14 +45,12 @@ app.use(session({
 const whitelist = ['http://localhost:3000']
 
 const corsOptions = {
-  origin: (origin, callback) => {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not Allowed'))
-    }
-  }
+    "origin": "http://localhost:3000",
+    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+    "credentials" : true
 }
+
+app.use(cors(corsOptions));
 
 
 // MIDDLEWARE ––––––––––––––––––––––––––––––
