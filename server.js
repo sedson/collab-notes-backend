@@ -19,6 +19,7 @@ const mongoURI = 'mongodb://127.0.0.1:27017/' + selectedDB;
 const mongooseOpts = {
   useFindAndModify: false,
   useNewUrlParser: true,
+  useCreateIndex: true,
   useUnifiedTopology: true
 };
 
@@ -42,11 +43,10 @@ app.use(session({
 
 
 // CORS ––––––––––––––––––––––––––––––––––––
-const whitelist = ['http://localhost:3000']
 
 const corsOptions = {
     "origin": "http://localhost:3000",
-    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+    "methods": "GET,PUT,PATCH,POST,DELETE",
     "credentials" : true
 }
 

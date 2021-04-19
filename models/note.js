@@ -9,5 +9,6 @@ const noteSchema = new mongoose.Schema({
   editedAt: Number,
 })
 
+
 const Note = mongoose.model('Note', noteSchema);
 module.exports = Note;

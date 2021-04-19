@@ -7,7 +7,7 @@ module.exports = router;
 // HELPERS –––––––––––––––––––––––––––––––––
 const handleErr = (err, req, res) => {
   if (err) {
-    res.status(400).json({
+    res.status(404).json({
       error: err.message,
       currentUser: req.session.currentUser || null
     })
@@ -24,6 +24,7 @@ router.get('/', (req, res) => {
     if (handleErr(err, req, res)) return;
 
     res.status(200).json({
+      message: "Success",
       data: data,
       currentUser: req.session.currentUser || null
     })
@@ -38,6 +39,7 @@ router.get('/allby/:username', (req, res) => {
     if (handleErr(err, req, res)) return;
 
     res.status(200).json({
+      message: "Success",
       data: data,
       currentUser: req.session.currentUser || null
     })
@@ -51,6 +53,7 @@ router.get('/allshared/:username', (req, res) => {
     if (handleErr(err, req, res)) return;
 
     res.status(200).json({
+      message: "Success",
       data: data,
       currentUser: req.session.currentUser || null
     })
@@ -62,11 +65,16 @@ router.get('/allshared/:username', (req, res) => {
 // POST NOTE --------------------------------
 router.post('/', (req, res) => {
 
-  // if( ! req.session.currentUser) {
-  //   res.status(400).json({
-  //     message: "Must be logged in to create notes"
-  //   })
-  // }
+  if( ! req.session.currentUser) {
+    res.status(401).json({
+      message: "Must be logged in to create notes",
+      data: [],
+      currentUser: null
+    })
+    return;
+  }
+
+  console.log(req.session)
 
   const newNote = {
     title: req.body.title || "untitled",
@@ -82,6 +90,7 @@ router.post('/', (req, res) => {
 
     res.status(200).json({
       message: "Note document created",
+      data: data,
       currentUser: req.session.currentUser || null
     })
   })
@@ -95,6 +104,7 @@ router.get('/:noteID', (req, res) => {
     if (handleErr(err, req, res)) return;
 
     res.status(200).json({
+      message: "Success",
       data: data,
       currentUser: req.session.currentUser || null
     })
@@ -110,6 +120,7 @@ router.delete('/:noteID', (req, res) => {
 
     res.status(200).json({
       message: "Note successfully deleted.",
+      data: [],
       currentUser: req.session.currentUser || null
     })
   })
@@ -126,12 +137,13 @@ router.put('/:noteID', (req, res) => {
   }
 
 
-  Note.findByIdAndUpdate(req.params.noteID, updateDrawing, (err, data) => {
+  Note.findByIdAndUpdate(req.params.noteID, updateDrawing, {new: true}, (err, data) => {
 
     if (handleErr(err, req, res)) return;
 
     res.status(200).json({
       message: "Note successfully updated.",
+      data: data,
       currentUser: req.session.currentUser || null
     })
   })
@@ -150,6 +162,7 @@ router.patch('/:noteID', (req, res) => {
     if (! (req.body.operation === "add" || req.body.operation === "remove")) {
       res.status(400).json({
         message: "Please supply an operation: either 'add' or 'remove'",
+        data: [],
         currentUser: req.session.currentUser || null
       });
       return;
@@ -159,6 +172,7 @@ router.patch('/:noteID', (req, res) => {
     if (! req.body.username) {
       res.status(400).json({
         message: "Please supply a username",
+        data: [],
         currentUser: req.session.currentUser || null
       });
       return;
@@ -172,6 +186,7 @@ router.patch('/:noteID', (req, res) => {
       data.save().then(() => {
         res.status(200).json({
           message: "Collaborator successfully added.",
+          data: [],
           currentUser: req.session.currentUser || null
         })
       })
@@ -184,6 +199,7 @@ router.patch('/:noteID', (req, res) => {
     data.save().then(() => {
       res.status(200).json({
         message: "Collaborator successfully removed.",
+        data: [],
         currentUser: req.session.currentUser || null
       })
     })

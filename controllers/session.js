@@ -12,14 +12,16 @@ router.post('/', (req, res) => {
     if (err) {
       res.status(400).json({
         message: err.message,
+        data: [],
         currentUser: rea.session.currentUser || null,
       })
       return;
     }
 
     if (! user) {
-      res.status(200).json({
-        message: "NO USER IN SYSTEM",
+      res.status(400).json({
+        message: "Username not found!",
+        data: [],
         currentUser: null,
       })
       return;
@@ -27,17 +29,22 @@ router.post('/', (req, res) => {
 
     if (req.body.password === user.password) {
 
+      // actually log in
       req.session.currentUser = user.username;
 
-      
       res.status(200).json({
-        message: "LOGGED IN",
-        currentUser: user.username || null,
+        message: "Logged in!",
+        data: [],
+        currentUser: req.session.currentUser,
       })
+
     } else {
+
       req.session.currentUser = null;
+
       res.status(400).json({
-        message: "BAD LOG IN",
+        message: "Incorrect password!",
+        data: [],
         currentUser: null,
       })
     }
