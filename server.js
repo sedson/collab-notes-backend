@@ -2,13 +2,12 @@ require('dotenv').config();
 
 const PORT = process.env.PORT || 3001;
 
+// HTTP ––––––––––––––––––––––––––––––––––––
+const http = require('http');
+
 // EXPRESS –––––––––––––––––––––––––––––––––
 const express = require('express');
 const app = express();
-
-// CORS ––––––––––––––––––––––––––––––––––––
-const cors = require('cors');
-
 
 // MONGOOSE ––––––––––––––––––––––––––––––––
 const mongoose = require('mongoose');
@@ -43,6 +42,7 @@ app.use(session({
 
 
 // CORS ––––––––––––––––––––––––––––––––––––
+const cors = require('cors');
 
 const corsOptions = {
     "origin": "http://localhost:3000",
@@ -68,8 +68,33 @@ app.get('/', (req, res) => {
 })
 
 
-// LISTENER
+// SERVER ––––––––––––––––––––––––––––––––––
+const server = http.createServer(app);
 
-app.listen(PORT, () =>{
+server.listen(PORT, () =>{
   console.log(`Listening on http://localhost:${PORT}`)
 })
+
+// SOCKETS –––––––––––––––––––––––––––––––––
+const ws = require('ws');
+
+const wsServer = new ws.Server({ noServer: true });
+
+wsServer.on('connection', socket => {
+  // console.log(socket);
+
+  socket.on('message', message => {
+    // console.log(JSON.parse(message));
+    wsServer.clients.forEach(client => {
+      if (client !== socket) {
+        client.send(message);
+      }
+    });
+  });
+});
+
+server.on('upgrade', (request, socket, head) => {
+  wsServer.handleUpgrade(request, socket, head, socket => {
+    wsServer.emit('connection', socket, request);
+  });
+});
