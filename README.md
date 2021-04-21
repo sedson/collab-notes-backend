@@ -2,7 +2,7 @@
 
 Can set any PORT in a `.env` file. Default is 3001.
 
-All routes send JSON with this schema : 
+All routes send JSON with this schema :
 ```
 {
   data: requested data or [],
@@ -26,3 +26,17 @@ All routes send JSON with this schema :
 |DELETE | /notes/:id | na | success if note deleted |
 |PUT | /notes/:id | {title, ?text } | success if note updated |
 |PATCH | /notes/:id | {username, operation : 'add' \| 'remove'} | success if note user added or removed from doc |
+
+### SESSIONS
+
+| Method | Endpoint | Input | Output |
+| --- | --- | --- | --- |
+| GET | /sessions | na | check in route to verify user session |
+| POST | /sessions | {username, password} | attempt a log in |
+
+### USERS
+
+| Method | Endpoint | Input | Output |
+| --- | --- | --- | --- |
+| GET | /users | na | list of usernames in DB |
+| POST | /users | {username, password} | create a user account | 

@@ -9,6 +9,7 @@ const handleErr = (err, req, res) => {
   if (err) {
     res.status(404).json({
       error: err.message,
+      data: [],
       currentUser: req.session.currentUser || null
     })
     return true;
