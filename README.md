@@ -9,90 +9,13 @@ All routes send JSON containing the current user and either a document or a suce
 
 ### NOTES
 
-#### Get all notes in DB
-```
-GET /notes
-returns {
-  data: all notes in DB    
-}
-```
-
-#### Get a single note
-```
-GET /notes/:noteID
-
-returns {
-  data: single note document    
-}
-```
-
-#### Get all of a user's owned notes
-```
-GET /allby/:username
-
-returns {
-  data: all notes created by username  
-}
-```
-
-#### Get all notes that a user shares
-```
-GET /allshared/:username
-
-returns {
-  data: all notes created by username  
-}
-```
-
-#### Create a note
-```
-POST /notes
-
-expects body {
-    title: string,
-    text: string,
-}
-
-returns {
-  message
-}
-```
-
-#### Delete a note
-```
-DELETE /notes/:nodeID
-
-returns {
-  message
-}
-```
-
-#### Update a note
-```
-PUT /notes/:noteID
-
-expects body {
-  title: string
-  text: string
-}
-
-returns {
-  message
-}
-
-```
-
-#### Add or remove a collaborator from a note
-```
-PATCH /notes/:noteID
-
-expects body {
-  username: string
-  operation: string – either "add" or "remove"
-}
-
-returns {
-  message
-}
-
-```
+| Endpoint | Input | Output |
+| --- | --- | --- | --- |
+| /notes | na | all notes in DB |
+| /notes/:id | na | one note |
+| /notes/allby/:user | na | all notes created by user |
+| /notes/allshared/:user | na | all notes shared with user |
+| POST /notes | { title, ?text } | success if note created |
+| DELETE /notes/:id | na | success if note deleted |
+| PUT /notes/:id | {title, ?text } | success if note updated |
+| PATCH /notes/:id | {username, operation ('add' | 'remove')} | success if note user added or removed from doc |
