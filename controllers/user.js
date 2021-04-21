@@ -5,9 +5,10 @@ const User = require('../models/user.js')
 module.exports = router;
 
 // HELPERS –––––––––––––––––––––––––––––––––
-const handleErr = (err, res) => {
+const handleErr = (err, req, res) => {
   res.status(400).json({
     error: err.message,
+    data: [],
     currentUser: req.session.currentUser || null
   })
 }
@@ -16,7 +17,7 @@ const handleErr = (err, res) => {
 router.get('/', (req, res) => {
   User.find({}, (err, data) => {
     if (err) {
-      handleErr(err, res);
+      handleErr(err, req, res);
       return;
     }
     res.status(200).json({
@@ -28,14 +29,15 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   User.create(req.body, (err, data) => {
     if (err) {
-      handleErr(err, res);
+      handleErr(err, req, res);
       return;
     }
-
+    
+    req.session.currentUser = data.username;
     res.status(200).json({
       message: "User created.",
+      data: [],
       currentUser: data.username
     })
-
   })
 })

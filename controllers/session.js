@@ -4,9 +4,16 @@ const User = require('../models/user.js');
 
 module.exports = router;
 
+
+router.get('/', (req, res) => {
+  res.status(200).json({
+    currentUser: req.session.currentUser || null
+  })
+})
+
+
 router.post('/', (req, res) => {
-
-
+  
   User.findOne({username: req.body.username}, (err, user) => {
 
     if (err) {

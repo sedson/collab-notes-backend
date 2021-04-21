@@ -76,22 +76,7 @@ server.listen(PORT, () =>{
 })
 
 // SOCKETS –––––––––––––––––––––––––––––––––
-const ws = require('ws');
-
-const wsServer = new ws.Server({ noServer: true });
-
-wsServer.on('connection', socket => {
-  // console.log(socket);
-
-  socket.on('message', message => {
-    // console.log(JSON.parse(message));
-    wsServer.clients.forEach(client => {
-      if (client !== socket) {
-        client.send(message);
-      }
-    });
-  });
-});
+const wsServer = require('./socketserver.js');
 
 server.on('upgrade', (request, socket, head) => {
   wsServer.handleUpgrade(request, socket, head, socket => {
