@@ -61,8 +61,6 @@ router.get('/allshared/:username', (req, res) => {
   })
 })
 
-
-
 // POST NOTE --------------------------------
 router.post('/', (req, res) => {
 
@@ -79,7 +77,7 @@ router.post('/', (req, res) => {
 
   const newNote = {
     title: req.body.title || "untitled",
-    text: req.body.text || "",
+    content: req.body.content || "",
     owner: req.session.currentUser || "none",
     authorizedEditors: ["OPEN"],
     createdAt: Date.now(),
@@ -131,14 +129,12 @@ router.delete('/:noteID', (req, res) => {
 // UPDATE NOTE –––––––––––––––––––––––––––––
 router.put('/:noteID', (req, res) => {
 
-  const updateDrawing = {
-    title: req.body.title,
-    text: req.body.text,
-    editedAt: Date.now(),
-  }
+  const update = { editedAt: Date.now() };
+  if (req.body.title) update.title = req.body.title;
+  if (req.body.content) update.content = req.body.content;
 
 
-  Note.findByIdAndUpdate(req.params.noteID, updateDrawing, {new: true}, (err, data) => {
+  Note.findByIdAndUpdate(req.params.noteID, update, {new: true}, (err, data) => {
 
     if (handleErr(err, req, res)) return;
 
