@@ -11,9 +11,15 @@ router.get('/', (req, res) => {
   })
 })
 
+router.delete('/', (req, res) => {
+  req.session = null;
+  res.status(200).json({
+    currentUser: null
+  })
+})
 
 router.post('/', (req, res) => {
-  
+
   User.findOne({username: req.body.username}, (err, user) => {
 
     if (err) {
