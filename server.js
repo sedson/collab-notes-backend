@@ -13,6 +13,7 @@ const app = express();
 const mongoose = require('mongoose');
 
 const mongoURI = process.env.MONGODBURI;
+console.log(mongoURI);
 
 const mongooseOpts = {
   useFindAndModify: false,
