@@ -12,8 +12,7 @@ const app = express();
 // MONGOOSE ––––––––––––––––––––––––––––––––
 const mongoose = require('mongoose');
 
-const selectedDB = process.env.DB || 'collab-notes';
-const mongoURI = 'mongodb://127.0.0.1:27017/' + selectedDB;
+const mongoURI = process.env.MONGODBURI;
 
 const mongooseOpts = {
   useFindAndModify: false,
