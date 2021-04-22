@@ -7,7 +7,7 @@ module.exports = router;
 // HELPERS –––––––––––––––––––––––––––––––––
 const handleErr = (err, req, res) => {
   if (err) {
-    res.status(404).json({
+    res.status(400).json({
       error: err.message,
       data: [],
       currentUser: req.session.currentUser || null

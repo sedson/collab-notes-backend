@@ -6,8 +6,13 @@ module.exports = router;
 
 // HELPERS –––––––––––––––––––––––––––––––––
 const handleErr = (err, req, res) => {
+
+  if (err && err.message.split(' ')[0] === 'E11000') {
+    err.message = 'Username already in use!'
+  }
+
   res.status(400).json({
-    error: err.message,
+    message: err.message,
     data: [],
     currentUser: req.session.currentUser || null
   })
@@ -32,7 +37,7 @@ router.post('/', (req, res) => {
       handleErr(err, req, res);
       return;
     }
-    
+
     req.session.currentUser = data.username;
     res.status(200).json({
       message: "User created.",
