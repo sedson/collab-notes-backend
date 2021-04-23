@@ -12,8 +12,11 @@ router.get('/', (req, res) => {
 })
 
 router.delete('/', (req, res) => {
+  req.session.destroy();
   req.session = null;
   res.status(200).json({
+    message: 'User deleted',
+    data: [],
     currentUser: null
   })
 })

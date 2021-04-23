@@ -94,11 +94,9 @@ const wsServer = new ws.Server({ noServer: true });
 
 wsServer.on('connection', (socket, req) => {
 
-  console.log('Connect Attempt');
 
   const { docID, edID } = parseConnectionParams(req.url);
   connect(docID, edID, socket);
-  console.log('docID edID');
 
 
   socket.on('close', () => {
