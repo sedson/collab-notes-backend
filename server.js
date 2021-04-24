@@ -45,7 +45,7 @@ app.use(session({
 const cors = require('cors');
 
 const corsOptions = {
-    "origin": "http://localhost:3000",
+    "origin": ["http://localhost:3000", "https://collab-notes-front-end.herokuapp.com"],
     "methods": "GET,PUT,PATCH,POST,DELETE",
     "credentials" : true
 }
